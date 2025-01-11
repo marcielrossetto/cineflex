@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import api from "../services/api";
-import '../styles/style.css';
-
+import "../styles/style.css";
 
 const SessionContainer = styled.div`
   padding: 20px;
-  background-color: #2B2D36;
-  width: 450px ;
-   height: 100%; /* Ocupa 100% da altura da tela */
+  background-color: #2b2d36;
+  width: 450px;
+  height: 100%; /* Ocupa 100% da altura da tela */
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
   align-items: center; /* Centraliza verticalmente */
@@ -25,12 +24,17 @@ const DayContainer = styled.div`
 const Showtime = styled.button`
   margin: 5px;
   padding: 10px 20px;
-  border: 2px solid #EE897F;
+  border: 2px solid #ee897f;
   border-radius: 5px;
   background-color: #161413;
-  color: #EE897F;
+  color: #ee897f;
   font-size: 16px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #ee897f;
+    color: #161413;
+  }
 `;
 
 const MovieDetails = styled.div`
@@ -52,10 +56,12 @@ const MovieDetails = styled.div`
 
 export default function Sessions() {
   const { idFilme } = useParams(); // Captura o ID do filme da URL
+  const navigate = useNavigate(); // Hook para navegação programática
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    api.get(`/movies/${idFilme}/showtimes`)
+    api
+      .get(`/movies/${idFilme}/showtimes`)
       .then((res) => setMovie(res.data))
       .catch((err) => console.error("Erro ao buscar sessões:", err));
   }, [idFilme]);
@@ -80,7 +86,7 @@ export default function Sessions() {
             {day.showtimes.map((time) => (
               <Showtime
                 key={time.id}
-                onClick={() => (window.location.href = `/assentos/${time.id}`)}
+                onClick={() => navigate(`/assentos/${time.id}`)} // Navegação programática
               >
                 {time.name}
               </Showtime>
