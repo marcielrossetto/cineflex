@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import api from "../services/api";
-import '../styles/style.css';
-
+import "../styles/style.css";
 
 const SeatsContainer = styled.div`
+  padding: 20px;
+  width: 100%;
+  font-size: 16px;
+  background-color: #2b2d36;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
-  width: 100%;
-  font-size: 16px;
-
-  @media (max-width: 600px) {
-    padding: 10px;  // Reduz o padding em telas menores
+  height: calc(100vh - 90px);
+  
+  @media (max-width: 768px) {
+    padding: 10px;
+    width: 100%;
   }
 `;
 
@@ -24,29 +26,28 @@ const Seat = styled.button`
   width: 30px;
   height: 30px;
   margin: 5px;
-  border: 1px solid ${({ selected }) => (selected ? "#FF4791" : "#7B8B99")};
+  border: 1px solid ${({ selected }) => (selected ? "#EE897F" : "#7B8B99")};
   background-color: ${({ available, selected }) =>
-    !available ? "#C3CFD9" : selected ? "#8DD7CF" : "#E8833A"};
+    !available ? "#C3CFD9" : selected ? "#FADBC5" : "#9DB899"};
   color: ${({ available }) => (!available ? "#C3CFD9" : "#000")};
   border-radius: 50%;
   font-size: 14px;
   cursor: ${({ available }) => (!available ? "not-allowed" : "pointer")};
-
   &:hover {
     background-color: ${({ available, selected }) =>
       available && !selected ? "#F3A68C" : ""};
   }
 
-  @media (max-width: 600px) {
-    width: 25px;  // Ajusta o tamanho dos assentos para telas pequenas
+  @media (max-width: 768px) {
+    width: 25px;
     height: 25px;
-    font-size: 12px;  // Reduz o tamanho da fonte
+    font-size: 12px;
   }
 `;
 
 const FormContainer = styled.form`
   width: 100%;
-  max-width: 400px;
+  max-width: 90%;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
@@ -57,6 +58,12 @@ const FormContainer = styled.form`
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
+    border-radius: 5px;
+
+    @media (max-width: 768px) {
+      padding: 8px;
+      font-size: 14px;
+    }
   }
 
   button {
@@ -68,32 +75,32 @@ const FormContainer = styled.form`
     cursor: pointer;
     border-radius: 5px;
     width: 100%;
-  }
 
-  @media (max-width: 600px) {
-    max-width: 100%;  // Deixa o formulário ocupar 100% da tela em dispositivos pequenos
-    input, button {
-      font-size: 14px;  // Diminui o tamanho da fonte em telas pequenas
+    @media (max-width: 768px) {
+      padding: 8px;
+      font-size: 14px;
     }
   }
 `;
 
 export default function Seats() {
-  const { idSessao } = useParams(); // Captura o ID da sessão da URL
+  const { idSessao } = useParams();
+  const navigate = useNavigate();
   const [session, setSession] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [buyerName, setBuyerName] = useState("");
   const [buyerCpf, setBuyerCpf] = useState("");
 
   useEffect(() => {
-    api.get(`/showtimes/${idSessao}/seats`)
+    api
+      .get(`/showtimes/${idSessao}/seats`)
       .then((res) => setSession(res.data))
       .catch((err) => console.error("Erro ao buscar assentos:", err));
   }, [idSessao]);
 
   const toggleSeat = (seat) => {
     if (!seat.isAvailable) {
-      alert("Esse assento não está disponível");
+      alert("Esse assento não está disponível.");
       return;
     }
 
@@ -114,16 +121,33 @@ export default function Seats() {
 
     const payload = {
       ids: selectedSeats,
-      name: buyerName,
-      cpf: buyerCpf,
+      name: buyerName.trim(),
+      cpf: buyerCpf.trim(),
     };
 
-    api.post("/seats/book-many", payload)
+    api
+      .post("/seats/book-many", payload)
       .then(() => {
-        alert("Assentos reservados com sucesso!");
-        window.location.href = "/sucesso";
+        const sessionInfo = {
+          movieTitle: session.movie.title,
+          sessionDate: session.day.date,
+          sessionTime: session.name,
+          seats: selectedSeats.map((id) =>
+            session.seats.find((seat) => seat.id === id)?.name
+          ),
+        };
+
+        const buyerInfo = {
+          name: buyerName,
+          cpf: buyerCpf,
+        };
+
+        navigate("/sucesso", { state: { sessionInfo, buyerInfo } });
       })
-      .catch((err) => console.error("Erro ao reservar assentos:", err));
+      .catch((err) => {
+        console.error("Erro ao reservar assentos:", err);
+        alert("Erro ao tentar reservar os assentos. Tente novamente.");
+      });
   };
 
   if (!session) {

@@ -12,9 +12,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="parent-container">
+      <div className="header1">
+        <h1>Em Cartaz</h1>
+      </div>
       <div className="movie-container">
-        <h1>Escolha o filme</h1>
         {movies.map((movie) => (
           <img
             key={movie.id}
@@ -27,4 +29,4 @@ export default function Home() {
       </div>
     </div>
   );
-}
+}  

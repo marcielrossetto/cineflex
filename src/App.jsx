@@ -17,6 +17,7 @@ function App() {
         <Route path="/sessoes/:idFilme" element={<Sessions />} />
         <Route path="/assentos/:idSessao" element={<Seats />} />
         <Route path="/sucesso" element={<Success />} />
+        
       </Routes>
     </div>
   );

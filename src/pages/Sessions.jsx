@@ -7,19 +7,37 @@ import '../styles/style.css';
 
 const SessionContainer = styled.div`
   padding: 20px;
-  background-color: #2B2D36;
-  width: 450px ;
+  background-color: #1e1e22;
+  width: 100% ;
    height: 100%; /* Ocupa 100% da altura da tela */
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
   align-items: center; /* Centraliza verticalmente */
   flex-direction: column;
-  margin: 20%;
 `;
 
 const DayContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: white;
+  width: 80%;
+height: 149px;
+top: 145px;
+left: 18px;
+gap: 0px;
+border-radius: 8px;
+opacity: 0px;
+background-color: #2B2D36;
+border: 1px solid black;
+align-items: center;
+padding: 10px;
+
+hr{
+  border: 1px solid  #4E5A65; // Cor da linha
+  margin:10px 0; // Margem para espaçamento
+}
+h2{
+  font-size: 20px;
+}
 `;
 
 const Showtime = styled.button`
@@ -37,6 +55,10 @@ const MovieDetails = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  font-family: Sarala;
+  font-size: 34px;
+  color: #FFF;
+
 
   img {
     width: 100px;
@@ -68,14 +90,14 @@ export default function Sessions() {
     <SessionContainer>
       {/* Detalhes do filme */}
       <MovieDetails>
-        <img src={movie.posterURL} alt={movie.title} />
-        <h1>{movie.title}</h1>
+       Selecione Horario
       </MovieDetails>
 
       {/* Lista de sessões por dia */}
       {movie.days.map((day) => (
         <DayContainer key={day.id}>
           <h2>{`${day.weekday} - ${day.date}`}</h2>
+          <hr  />
           <div>
             {day.showtimes.map((time) => (
               <Showtime

@@ -6,11 +6,10 @@ const Menu = () => {
   return (
     <nav className="navbar">
       <ul className="menu">
-      <img src="./assets/filme.png" alt="filme" />
+        <img src="/assets/filme.png" alt="filme" /> {/* Caminho absoluto */}
         <li className="menu-item">
           <Link className="menu-link" to="/">DrivenFlex</Link>
         </li>
-       
       </ul>
     </nav>
   );
