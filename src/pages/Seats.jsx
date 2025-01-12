@@ -14,8 +14,8 @@ const SeatsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 90px);
-  
+  height: calc(100vh - 90px); /* Ocupa 100% da altura da tela menos a altura da navbar */
+
   @media (max-width: 768px) {
     padding: 10px;
     width: 100%;
