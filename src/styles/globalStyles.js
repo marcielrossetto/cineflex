@@ -10,6 +10,7 @@ line-height: 39.92px;
 text-align: center;
 text-underline-position: from-font;
 text-decoration-skip-ink: none;
+background-color: red;
 
   }
 `;

@@ -5,7 +5,7 @@ import api from "../services/api";
 import "../styles/style.css";
 
 const SeatsContainer = styled.div`
-  padding: 20px;
+  margin-top: 0;
   width: 100%;
   font-size: 16px;
   background-color: #2b2d36;
@@ -13,8 +13,8 @@ const SeatsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: calc(100vh - 90px); /* Ocupa 100% da altura da tela menos a altura da navbar */
+  justify-content: flex-start;
+  height: calc(100vh - 90px);
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -83,6 +83,32 @@ const FormContainer = styled.form`
   }
 `;
 
+function validateCpf(cpf) {
+  cpf = cpf.replace(/[^\d]/g, "");
+
+  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+  let sum = 0;
+  for (let i = 1; i <= 9; i++) {
+    sum += parseInt(cpf[i - 1]) * (11 - i);
+  }
+
+  let remainder = (sum * 10) % 11;
+  if (remainder === 10 || remainder === 11) remainder = 0;
+
+  if (remainder !== parseInt(cpf[9])) return false;
+
+  sum = 0;
+  for (let i = 1; i <= 10; i++) {
+    sum += parseInt(cpf[i - 1]) * (12 - i);
+  }
+
+  remainder = (sum * 10) % 11;
+  if (remainder === 10 || remainder === 11) remainder = 0;
+
+  return remainder === parseInt(cpf[10]);
+}
+
 export default function Seats() {
   const { idSessao } = useParams();
   const navigate = useNavigate();
@@ -90,6 +116,7 @@ export default function Seats() {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [buyerName, setBuyerName] = useState("");
   const [buyerCpf, setBuyerCpf] = useState("");
+  const [isCpfValid, setIsCpfValid] = useState(true);
 
   useEffect(() => {
     api
@@ -111,11 +138,28 @@ export default function Seats() {
     }
   };
 
+  const handleCpfChange = (e) => {
+    const value = e.target.value;
+    setBuyerCpf(value);
+
+    // Valida CPF ao digitar
+    if (value.length === 14) {
+      setIsCpfValid(validateCpf(value));
+    } else {
+      setIsCpfValid(true); // Reseta validação enquanto digita
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!selectedSeats.length) {
       alert("Selecione pelo menos um assento.");
+      return;
+    }
+
+    if (!validateCpf(buyerCpf)) {
+      alert("CPF inválido. Verifique os dados e tente novamente.");
       return;
     }
 
@@ -182,9 +226,11 @@ export default function Seats() {
           type="text"
           placeholder="CPF do comprador"
           value={buyerCpf}
-          onChange={(e) => setBuyerCpf(e.target.value)}
+          onChange={handleCpfChange}
           required
+          style={{ borderColor: isCpfValid ? "#ccc" : "red" }}
         />
+        {!isCpfValid && <p style={{ color: "red" }}>CPF inválido</p>}
         <button type="submit">Reservar assento(s)</button>
       </FormContainer>
     </SeatsContainer>

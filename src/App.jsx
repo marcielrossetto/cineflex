@@ -8,10 +8,10 @@ import Menu from './pages/Menu';
 function App() {
   return (
     <div>
-      {/* Menu que aparecerá em todas as telas */}
+      {}
       <Menu />
 
-      {/* Definição das rotas */}
+      {}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sessoes/:idFilme" element={<Sessions />} />

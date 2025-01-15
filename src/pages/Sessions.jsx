@@ -9,10 +9,10 @@ const SessionContainer = styled.div`
   padding: 20px;
   background-color: #1e1e22;
   width: 100% ;
-   height: 100%; /* Ocupa 100% da altura da tela */
+   height: 100%; 
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; 
+  align-items: center; 
   flex-direction: column;
 `;
 
@@ -32,8 +32,8 @@ align-items: center;
 padding: 10px;
 
 hr{
-  border: 1px solid  #4E5A65; // Cor da linha
-  margin:10px 0; // Margem para espaçamento
+  border: 1px solid  #4E5A65; 
+  margin:10px 0; 
 }
 h2{
   font-size: 20px;
@@ -73,7 +73,7 @@ const MovieDetails = styled.div`
 `;
 
 export default function Sessions() {
-  const { idFilme } = useParams(); // Captura o ID do filme da URL
+  const { idFilme } = useParams();
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
