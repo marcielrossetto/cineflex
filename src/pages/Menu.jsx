@@ -7,48 +7,53 @@ const Navbar = styled.nav`
   padding: 10px 20px;
   height: 90px;
   width: 100%;
-  margin: 0 auto;
   display: flex;
-  justify-content: space-between; /* Ajusta o conteúdo para se espalhar */
-  align-items: center;
+  justify-content: center; 
+  align-items: center; 
+  overflow-x: hidden; 
 `;
 
 const Menu = styled.ul`
   list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   padding: 0;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; /* Permite que os itens se ajustem em telas menores */
+  max-width: 100%;
 `;
 
+
 const MenuItem = styled.li`
-  margin: 0 15px;
-  font-size: 18px;
+  margin: 0 10px;
   display: flex;
   align-items: center;
+  font-size: 18px;
 `;
 
 const MenuLink = styled(Link)`
   color: #FADBC5;
   text-decoration: none;
-  font-size: 2rem; /* Usando unidades relativas */
-  text-align: center;
+  font-size: 4rem;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  margin-left: 10px;
 
   @media (max-width: 768px) {
-    font-size: 1.5rem; /* Reduz o tamanho da fonte em telas menores */
+    font-size: 1.5rem;
   }
 `;
 
 const MenuImage = styled.img`
   height: 50px;
   width: auto;
-  vertical-align: middle;
-  margin-right: 15px;
+  margin-right: 10px; 
+  display: block;
 
   @media (max-width: 768px) {
-    height: 40px; /* Ajusta a altura da imagem para telas menores */
+    height: 40px;
   }
 `;
 
@@ -56,9 +61,9 @@ const MenuComponent = () => {
   return (
     <Navbar>
       <Menu>
-        <MenuImage src="/assets/filme.png" alt="filme" />
         <MenuItem>
-          <MenuLink to="/">DrivenFlex</MenuLink>
+          <MenuImage src="/assets/filme.png" alt="filme" />
+          <MenuLink to="/">Cine Flex</MenuLink>
         </MenuItem>
       </Menu>
     </Navbar>

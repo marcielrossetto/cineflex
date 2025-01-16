@@ -88,12 +88,12 @@ export default function Sessions() {
 
   return (
     <SessionContainer>
-      {/* Detalhes do filme */}
+      {}
       <MovieDetails>
        Selecione Horario
       </MovieDetails>
 
-      {/* Lista de sessões por dia */}
+      {}
       {movie.days.map((day) => (
         <DayContainer key={day.id}>
           <h2>{`${day.weekday} - ${day.date}`}</h2>

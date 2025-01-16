@@ -5,12 +5,17 @@ import styled from 'styled-components';
 const ParentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: stretch;  /* Alinha para pegar toda a largura */
+  align-items: stretch;
   justify-content: flex-start;
-  height: 100%;  /* Faz o contêiner ocupar 100% da altura */
-  width: 100%;  /* Faz o contêiner ocupar 100% da largura */
+  height: 100%;
+  width: 100%;
   background-color: #2b2d36;
+  overflow-x: hidden;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
 `;
+
 
 
 const Header1 = styled.header`
@@ -26,18 +31,11 @@ const MovieContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 0 auto;
-  background-color: #2b2d36;
-  color: #ffffff;
   padding: 20px;
-  box-sizing: border-box; /* Garantir que o padding não ultrapasse a largura da div */
-  max-width: 100%; /* Garantir que a largura não ultrapasse a tela */
-
-  @media (max-width: 768px) {
-    align-items: center;
-  }
+  box-sizing: border-box;
+  background-color: #2b2d36;
+  max-width: 100%;
 `;
-
 
 const Movie = styled.div`
   flex: 1 1 145px;
@@ -47,11 +45,15 @@ const Movie = styled.div`
   border-radius: 18px;
   cursor: pointer;
   padding: 10px;
-  width: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 768px) {
     flex: 100%;
     max-width: 145px;
+    margin: 0;
+    padding: 5px;
   }
 `;
 
