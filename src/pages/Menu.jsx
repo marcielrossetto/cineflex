@@ -10,7 +10,6 @@ const Navbar = styled.nav`
   display: flex;
   justify-content: center; 
   align-items: center; 
-  overflow-x: hidden; 
 `;
 
 const Menu = styled.ul`

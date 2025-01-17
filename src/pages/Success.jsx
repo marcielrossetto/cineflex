@@ -8,6 +8,7 @@ const SuccessContainer = styled.div`
   background-color: #2b2d36;
   width:100%;
   margin: auto;
+  height: 100vh;
   
 
   h1 {
@@ -44,6 +45,7 @@ text-align: left;
 text-underline-position: from-font;
 text-decoration-skip-ink: none;
 
+
     }
 
   }
@@ -53,11 +55,19 @@ text-decoration-skip-ink: none;
     width: 100%;
     padding: 10px;
     background-color: #EE897F;
-    color: white;
-    font-size: 16px;
+    color: #000000;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: Sarala;
+font-size: 18px;
+font-weight: 700;
+line-height: 29.35px;
+letter-spacing: 0.04em;
+text-align: center;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+
   }
 `;
 

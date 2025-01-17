@@ -8,12 +8,13 @@ const ParentContainer = styled.div`
   align-items: stretch;
   justify-content: flex-start;
   height: 100%;
-  width: 100%;
+  width: 100%; /* Garante que ocupa toda a largura */
   background-color: #2b2d36;
-  overflow-x: hidden;
-  margin: 0 auto;
-  padding: 0;
-  box-sizing: border-box;
+  overflow-x: hidden; /* Remove rolagem horizontal */
+  overflow-y: auto; /* Permite rolagem vertical */
+  margin: 0; /* Remove margens externas */
+  padding: 0; /* Remove espaçamento interno */
+  box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
 `;
 
 
@@ -34,8 +35,10 @@ const MovieContainer = styled.div`
   padding: 20px;
   box-sizing: border-box;
   background-color: #2b2d36;
-  max-width: 100%;
+  overflow: visible; /* Permite expandir dentro do contêiner */
+  max-width: 100%; /* Garante que não ultrapassa a largura da tela */
 `;
+
 
 const Movie = styled.div`
   flex: 1 1 145px;

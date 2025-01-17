@@ -69,12 +69,21 @@ const FormContainer = styled.form`
   button {
     padding: 10px;
     background-color: #e8833a;
-    color: white;
+    color: #000000;
     border: none;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
     width: 100%;
+    font-family: Sarala;
+font-size: 18px;
+font-weight: 700;
+line-height: 29.35px;
+letter-spacing: 0.04em;
+text-align: center;
+text-underline-position: from-font;
+text-decoration-skip-ink: none;
+
 
     @media (max-width: 768px) {
       padding: 8px;
